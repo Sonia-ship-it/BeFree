@@ -6,10 +6,16 @@ const authRoutes=require('./routes/auth')
 require('dotenv').config();
 require('./config')
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: [
+    "http://localhost:5173",
+    "https://be-free-frontend.vercel.app"
+    ],// allow React app
+  credentials: true,
+}))
 const port=process.env.PORT
-app.use("/api/register", userRoutes)
-app.use("/api/login", authRoutes)
+app.use("/register", userRoutes)
+app.use("/login", authRoutes)
 try{
 app.listen(port, () => console.log(`Server running at port ${port}`))
 }
